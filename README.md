@@ -103,7 +103,7 @@ router.get('/reg',function (req,res){
 })
 ```
 <br/>
-![](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png) 
+![image](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png) 
 
 4.登录页面
 ====
