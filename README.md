@@ -49,6 +49,7 @@ const taskSchema = new mongoose.Schema({
 2.主页面
 ====
 运用layui来制作主页面,并且如果账号权限10级以上,显示后台进入接口(所有账号默认创建的时候10级)
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/01.png) 
 
 3.注册页面
 ====
