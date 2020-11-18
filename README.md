@@ -49,6 +49,7 @@ const taskSchema = new mongoose.Schema({
 2.主页面
 ====
 运用layui来制作主页面,并且如果账号权限10级以上,显示后台进入接口(所有账号默认创建的时候10级)
+<br/>
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/01.png) 
 
 3.注册页面
@@ -101,6 +102,9 @@ router.get('/reg',function (req,res){
     })
 })
 ```
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png) 
+<br/>
 
 4.登录页面
 ====
@@ -125,6 +129,10 @@ router.get('/login',function (req,res){
 })
 ```
 
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/03.png) 
+<br/>
+
 5.后台页面
 ====
 >借用layui例子中的后台示例,功能:用户管理,任务管理,任务发布
@@ -144,6 +152,14 @@ router.get('/user',function (req,res){
     })
 })
 ```
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/04.png) 
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/05.png) 
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/06.png) 
+<br/>
+
 6.任务详情
 ====
 >>>监听表单点击事件,当用户点击的时候,进入详情页,并把用户id发送到后端.后端根据任务id,返回任务和用户数据到前台
@@ -163,6 +179,10 @@ router.get('/task/:id',function (req,res){
     })
 })
 ```
+
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/07.png) 
+<br/>
 
 7.接取任务和发布评论
 ====
@@ -188,6 +208,10 @@ router.post('/task/:id',function (req,res){
     })
 })
 ```
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/08.png) 
+<br/>
+
 >>>当用户接取了任务之后,显示评价框.用户输入信息发送至后端,保存下来
 ```JavaScript
 router.post('/xq/finmsg',function (req,res){
@@ -199,3 +223,6 @@ router.post('/xq/finmsg',function (req,res){
     })
 })
 ```
+<br/>
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/09.png) 
+<br/>
