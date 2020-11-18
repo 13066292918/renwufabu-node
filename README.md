@@ -1,6 +1,11 @@
 node+layui  账号注册登录-任务发布-评价功能
 ====
 
+
+1.设计数据库.
+----
+>>>###规定账号,密码,名称,权限格式.和发布任务的格式
+
 ```javascript
 
 const userSchema = new mongoose.Schema({
