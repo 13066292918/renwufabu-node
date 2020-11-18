@@ -104,7 +104,6 @@ router.get('/reg',function (req,res){
 ```
 <br/>
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png) 
-<br/>
 
 4.登录页面
 ====
@@ -131,7 +130,6 @@ router.get('/login',function (req,res){
 
 <br/>
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/03.png) 
-<br/>
 
 5.后台页面
 ====
@@ -209,7 +207,7 @@ router.post('/task/:id',function (req,res){
 })
 ```
 <br/>
-![](https://github.com/13066292918/renwufabu-node/blob/master/picture/08.png) 
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/08.png)
 <br/>
 
 >>>当用户接取了任务之后,显示评价框.用户输入信息发送至后端,保存下来
