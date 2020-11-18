@@ -102,7 +102,8 @@ router.get('/reg',function (req,res){
     })
 })
 ```
-![](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png) 
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/02.png)
+<br/>
 
 4.登录页面
 ====
@@ -127,9 +128,9 @@ router.get('/login',function (req,res){
 })
 ```
 
-<br/>
-![](https://github.com/13066292918/renwufabu-node/blob/master/picture/03.png) 
 
+![](https://github.com/13066292918/renwufabu-node/blob/master/picture/03.png) 
+<br/>
 5.后台页面
 ====
 >借用layui例子中的后台示例,功能:用户管理,任务管理,任务发布
@@ -149,11 +150,11 @@ router.get('/user',function (req,res){
     })
 })
 ```
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/04.png) 
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/05.png) 
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/06.png) 
 <br/>
 
@@ -177,7 +178,7 @@ router.get('/task/:id',function (req,res){
 })
 ```
 
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/07.png) 
 <br/>
 
@@ -205,7 +206,7 @@ router.post('/task/:id',function (req,res){
     })
 })
 ```
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/08.png)
 <br/>
 
@@ -220,6 +221,6 @@ router.post('/xq/finmsg',function (req,res){
     })
 })
 ```
-<br/>
+
 ![](https://github.com/13066292918/renwufabu-node/blob/master/picture/09.png) 
 <br/>
