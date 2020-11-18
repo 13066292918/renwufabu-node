@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%- title %></title>
+    <link rel="stylesheet" href="//localhost:2333/layui/css/layui.css">
+</head>
+<body>
+<div class="layui-header layui-main" >
+    <ul class="layui-nav layui-bg-blue">
+        <li class="layui-nav-item layui-this"><a href="/">任务详情</a></li>
+    </ul>
+    <ul class="layui-nav layui-bg-blue layui-layout-right">
+        <% if(login) { %>
+            <li class="layui-nav-item">当前用户:<%= user.username  %></li>
+            <% if(user.level >= 10){ %>
+                <li class="layui-nav-item"><a href="/admin/task/add">后台管理</a></li>
+            <% } %>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
+        <% }else { %>
+            <li class="layui-nav-item"><a href="/login">登录</a></li>
+            <li class="layui-nav-item"><a href="/reg">注册</a></li>
+        <% } %>
+    </ul>
+</div>
+
+<div class="layui-main">
+    <h1><%- data.title %></h1>
+    <div class="layui-text layui-row">
+        <div class="layui-col-md1">发布人:<%- data.author.username %></div>
+        <div>发布时间:<%- new Date(data.time).toLocaleString() %></div>
+    </div>
+
+    <fieldset class="layui-elem-field">
+        <legend>任务详情</legend>
+    </fieldset>
+
+    <div>
+        <%- data.content %>
+    </div>
+
+    <div>
+        已接取人数:<%- data.receiver.length %>人
+        最高人数:<%- data.num %>人
+        任务时限:<%- data.expiration %>前
+        任务难度:<div id="expiration"></div>
+    </div>
+
+    <div>
+        <% if (data.can || (a === -1)){%>
+            <button class="layui-btn layui-btn-normal layui-btn-disabled">不能接取</button>
+        <% }else{ %>
+            <button class="layui-btn layui-btn-normal " id="lijijiequ">立即接取</button>
+        <%}%>
+    </div>
+
+    <fieldset class="layui-elem-field">
+        <legend>接取人</legend>
+        <div>
+            <% if (data.receiver){ %>
+                <% for (var i=0;i<data.receiver.length;i++){ %>
+                    <%- `${i+1}.${data.receiver[i].user.username}` %>
+                <%}%>
+            <%}else{%>暂无人接取<%}%>
+        </div>
+    </fieldset>
+
+    <fieldset class="layui-elem-field">
+        <legend>完成详情</legend>
+    </fieldset>
+
+    <% for (var i=0;i<data.receiver.length;i++){ %>
+        <div class="layui-card">
+            <div class="layui-card-header">
+                用户名<%- data.receiver[i].user.username %>
+            </div>
+            <% if (data.receiver[i].finmsg){ %>
+                <div class="layui-card-body">
+                    <%- data.receiver[i].msg %>
+                </div>
+            <%}else {%>
+                <% if (user._id == data.receiver[i].user._id){ %>
+                <form class="layui-form" action="">
+                    <input type="text" hidden name="id" value="<%- data.receiver[i].user._id  %>">
+                    <input type="text" hidden name="index" value="<%- i  %>">
+                    <textarea id="demo<%-i%>" style="display: none;"></textarea>
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                </form>
+                <%}%>
+            <%}%>
+        </div>
+    <%}%>
+
+</div>
+
+<script src="//localhost:2333/layui/layui.js"></script>
+<script>
+    layui.use(['rate','layedit','form'],function (){
+        var rate = layui.rate
+        var $ = layui.$
+        var layedit = layui.layedit;
+        var form = layui.form
+        var edit = {}
+        <% for (var i=0;i<data.receiver.length;i++){ %>
+        edit.index<%-i%> = layedit.build('demo<%-i%>');
+        <%}%>
+
+        rate.render({
+            elem:'#expiration',
+            value:<%- data.difficulty %>,
+            readonly:true
+        })
+
+        $('#lijijiequ').on('click',function () {
+            layer.confirm('确认接取', {icon: 3, title: '提示'}, function (index) {
+                $.ajax({
+                    url: location.pathname,
+                    method: 'post',
+                    success:function (m){
+                        layer.alert(m.msg,function (){
+                            if (m.code == 0){
+                                location.reload()
+                            }
+                        })
+                    }
+                })
+            });
+        })
+        form.on('submit(formDemo)', function(data){
+            var da = data.field
+            da.msg = layedit.getContent(edit['index'+data.field.index])
+            da.taskid=location.pathname
+            layer.confirm('确认提交', {icon: 3, title:'提示'}, function(index){
+                $.ajax({
+                    url:'/xq/finmsg',
+                    method: "post",
+                    data:da,
+                    success:function (m){
+                        layer.alert(m.msg,function (){
+                            if (m.code == 0){
+                                location.reload()
+                            }
+                        })
+                    }
+                })
+            });
+            return false;
+        });
+
+    })
+</script>
+</body>
+
+</html>

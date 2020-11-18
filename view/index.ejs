@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%- title %></title>
+    <link rel="stylesheet" href="//localhost:2333/layui/css/layui.css">
+    <script src="//localhost:2333/layui/layui.js"></script>
+</head>
+<body>
+<div class="layui-bg-blue">
+    <div class="layui-header layui-main" >
+        <ul class="layui-nav layui-bg-blue">
+            <li class="layui-nav-item layui-this"><a href="/">任务大厅</a></li>
+        </ul>
+        <ul class="layui-nav layui-bg-blue layui-layout-right">
+            <% if(login) { %>
+            <li class="layui-nav-item">当前用户:<%= user.username  %></li>
+            <% if(user.level >= 10){ %>
+                    <li class="layui-nav-item"><a href="/admin/task/add">后台管理</a></li>
+             <% } %>
+            <li class="layui-nav-item"><a href="/logout">退出</a></li>
+            <% }else { %>
+            <li class="layui-nav-item"><a href="/login">登录</a></li>
+            <li class="layui-nav-item"><a href="/reg">注册</a></li>
+            <% } %>
+        </ul>
+    </div>
+
+    <div id="buts">
+        <button class="layui-btn layui-btn-normal" data-method="all">全部任务</button>
+        <button class="layui-btn layui-btn-normal" data-method="can">可以接取</button>
+        <button class="layui-btn layui-btn-normal" data-method="notcan">不可接取</button>
+
+        <div style="float: right">
+            <% if(login){ %>
+                <% if(user.level >= 10){%>
+                    <button class="layui-btn layui-btn-normal" data-method="my">我的任务</button>
+                    <button class="layui-btn layui-btn-normal" data-method="ing">已经接取</button>
+                    <button class="layui-btn layui-btn-normal" data-method="fin">已经完成</button>
+                <% }%>
+            <% }%>
+        </div>
+    </div>
+    <table class="layui-hide" id="test" lay-filter="demo"></table>
+</div>
+
+<script type="text/html" id="xq">
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="aa">查看详情</a>
+</script>
+
+<script>
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use(['element','table'], function(){
+        var element = layui.element;
+        var $ = layui.$
+        var table = layui.table;
+
+        table.render({
+            elem:"#test",
+            url:'/api/task/all',
+            method:"post",
+            cols:[
+                [
+                    {field:'title',title:'标题'},
+                    {field:'time',title:'时间',templet:function (d){
+                        return new Date(d.time).toLocaleString()
+                        }},
+                    {toolbar:'#xq'}
+
+                ]
+            ],
+            page: true
+        })
+
+        table.on('tool(demo)',function (obj){
+            location.href = '/task/'+obj.data._id
+        })
+
+        var m = {
+            all:function (){
+                table.reload('test',{
+                    url:'/api/task/all'
+                })
+            },
+            can:function (){
+                table.reload('test',{
+                    url:'api/task/can'
+                })
+            },
+            notcan:function (){
+                table.reload('test',{
+                    url:'api/task/notcan'
+                })
+            },
+            my:function (){
+                table.reload('test',{
+                    url:'api/task/my'
+                })
+            },
+            ing(){
+                table.reload('test',{
+                    url:'api/task/ing'
+                })
+            },
+            fin(){
+                table.reload('test',{
+                    url:'api/task/fin'
+                })
+            }
+        }
+
+        $('#buts .layui-btn').on('click',function (obj){
+            m[this.dataset.method]()
+        })
+    });
+</script>
+</body>
+</html>
